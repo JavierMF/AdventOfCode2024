@@ -4,7 +4,8 @@ package day01
 
 import DayChallenge
 import getNonBlankFileLines
-import kotlin.math.abs
+import transpose
+import kotlin.math.absoluteValue
 
 fun main() = Day01Challenge.run()
 
@@ -16,11 +17,9 @@ object Day01Challenge: DayChallenge(
 
     override fun runPart1(filePath: String): Long {
         val (list1, list2) = readNumbersLists(filePath)
-        list1.sort()
-        list2.sort()
-        return List(list1.size) { idx ->
-            abs(list1[idx] - list2[idx])
-        }.sum()
+        return list1.sorted()
+            .zip(list2.sorted())
+            .sumOf { (a, b) -> (a - b).absoluteValue }
     }
 
     override fun runPart2(filePath: String): Long {
@@ -31,15 +30,12 @@ object Day01Challenge: DayChallenge(
         }
     }
 
-    private fun readNumbersLists(filePath: String): Pair<MutableList<Long>, MutableList<Long>> {
-        val list1 = mutableListOf<Long>()
-        val list2 = mutableListOf<Long>()
-        getNonBlankFileLines(filePath)
+    private fun readNumbersLists(filePath: String): Pair<List<Long>, List<Long>> {
+        val listOfLists = getNonBlankFileLines(filePath)
             .map { line ->
                 val split = line.split(" ")
-                list1.add(split.first().toLong())
-                list2.add(split.last().toLong())
-            }
-        return Pair(list1, list2)
+                listOf(split.first().toLong(), split.last().toLong())
+            }.transpose()
+        return Pair(listOfLists.first(), listOfLists[1])
     }
 }

@@ -40,3 +40,5 @@ fun <T> getEntitiesByLine(filePath: String, mapper: LineMapper<T>): List<T> =
     getNonBlankFileLines(filePath).map(mapper::map)
 
 inline fun <reified T> T.printIt(): T = this.let { println(it); it }
+
+fun <T> List<List<T>>.transpose(): List<List<T>> = List(first().size) { i -> List(size) { j -> this[j][i] } }
