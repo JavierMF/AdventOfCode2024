@@ -16,6 +16,8 @@ object Day01Challenge: DayChallenge(
 
     override fun runPart1(filePath: String): Long {
         val (list1, list2) = readNumbersLists(filePath)
+        list1.sort()
+        list2.sort()
         return List(list1.size) { idx ->
             abs(list1[idx] - list2[idx])
         }.sum()
