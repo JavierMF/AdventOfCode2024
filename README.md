@@ -1,14 +1,15 @@
 # AdventOfCode2024
 
-Welcome to the Advent of Code[^aoc] Kotlin project created by [javiermf][github] using the [Advent of Code Kotlin Template][template] delivered by JetBrains.
+Welcome to the Advent of Code[^aoc] Kotlin project created using the [Advent of Code Kotlin Template][template] delivered by JetBrains.
 
-In this repository, javiermf is about to provide solutions for the puzzles using [Kotlin][kotlin] language.
+Here you can find my solutions (and also failed attempts) for [Advent of Code 2024](https://adventofcode.com/2024/) using Kotlin. I try to be as much idiomatic as possible and write clean code over hacky/smarty solution.
 
-If you're stuck with Kotlin-specific questions or anything related to this template, check out the following resources:
+* [Day 1](./src/main/kotlin/day01/main.kt)
 
-- [Kotlin docs][docs]
-- [Kotlin Slack][slack]
-- Template [issue tracker][issues]
+My solutions for other years:
+* [2023](https://github.com/JavierMF/AdventOfCode2023)
+* [2022](https://github.com/JavierMF/AdventOfCode2022)
+* [2020](https://github.com/JavierMF/AdventOfCode2020).
 
 
 [^aoc]:
@@ -17,9 +18,5 @@ If you're stuck with Kotlin-specific questions or anything related to this templ
     You can solve the puzzle and provide an answer using the language of your choice.
 
 [aoc]: https://adventofcode.com
-[docs]: https://kotlinlang.org/docs/home.html
-[github]: https://github.com/javiermf
-[issues]: https://github.com/kotlin-hands-on/advent-of-code-kotlin-template/issues
-[kotlin]: https://kotlinlang.org
-[slack]: https://surveys.jetbrains.com/s3/kotlin-slack-sign-up
 [template]: https://github.com/kotlin-hands-on/advent-of-code-kotlin-template
+
