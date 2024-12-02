@@ -5,6 +5,7 @@ Welcome to the Advent of Code[^aoc] Kotlin project created using the [Advent of 
 Here you can find my solutions (and also failed attempts) for [Advent of Code 2024](https://adventofcode.com/2024/) using Kotlin. I try to be as much idiomatic as possible and write clean code over hacky/smarty solution.
 
 * [Day 1](./src/main/kotlin/day01/main.kt)
+* [Day 2](./src/main/kotlin/day02/main.kt)
 
 My solutions for other years:
 * [2023](https://github.com/JavierMF/AdventOfCode2023)

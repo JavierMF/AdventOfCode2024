@@ -29,6 +29,10 @@ fun getNonBlankFileLines(args: Array<String>) =
         .readLines()
         .filterNot(String::isBlank)
 
+fun getNonBlankFileLinesAsNumbersList(filePath: String): List<List<Long>> =
+    getNonBlankFileLines(filePath)
+        .map { it.split(" ").map { it.toLong() } }
+
 fun interface LineMapper<T> {
     fun map(line: String): T
 }
