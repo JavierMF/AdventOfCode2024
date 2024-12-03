@@ -6,6 +6,7 @@ Here you can find my solutions (and also failed attempts) for [Advent of Code 20
 
 * [Day 1](./src/main/kotlin/day01/main.kt)
 * [Day 2](./src/main/kotlin/day02/main.kt)
+* [Day 3](./src/main/kotlin/day03/main.kt)
 
 My solutions for other years:
 * [2023](https://github.com/JavierMF/AdventOfCode2023)
