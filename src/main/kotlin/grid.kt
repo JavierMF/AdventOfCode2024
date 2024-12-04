@@ -53,7 +53,11 @@ data class Coords(val x: Int, val y: Int) {
 
 enum class Direction(val x: Int, val y: Int, val char:Char) {
     UP(0, -1, '↑'),
+    UPRIGHT(1, -1, '/'),
+    UPLEFT(-1, -1, '\\'),
     DOWN(0, 1, '↓'),
+    DOWNRIGHT(1, 1, '\\'),
+    DOWNLEFT(-1, 1, '/'),
     RIGHT(1, 0, '→'),
     LEFT(-1, 0, '←');
 
@@ -63,6 +67,10 @@ enum class Direction(val x: Int, val y: Int, val char:Char) {
                 DOWN -> UP
                 LEFT -> RIGHT
                 RIGHT -> LEFT
+                UPRIGHT -> DOWNLEFT
+                UPLEFT -> DOWNRIGHT
+                DOWNRIGHT -> UPLEFT
+                DOWNLEFT -> UPRIGHT
             }
 }
 
@@ -71,5 +79,12 @@ data class Grid(
 ) {
     private val cellsByCoords = cells.associateBy { it.coords }
 
+    val maxX = cells.map { it.coords.x }.max()
+    val maxY = cells.map { it.coords.y }.max()
+
+    fun cellNeighbours(cell: Cell) = cell.coords.neighboursInGrid(maxX, maxY).mapNotNull { cellInCoords((it)) }
+    fun cellInDirection(cell: Cell, dir: Direction) = cellInCoords(cell.coords.moveTo(dir))
+
     fun cellInCoords(coords: Coords): Cell? = cellsByCoords[coords]
+
 }
