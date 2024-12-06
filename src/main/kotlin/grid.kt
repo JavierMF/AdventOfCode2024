@@ -33,13 +33,13 @@ data class Coords(val x: Int, val y: Int) {
 
     private fun range(i: Int): Set<Int> = (i - 1 .. i + 1).toSet()
 
-    fun neighboursInGrid(maxX: Int, maxY: Int): Set<Coords> = rangeInBounday(x, maxX)
+    fun neighboursInGrid(maxX: Int, maxY: Int): Set<Coords> = rangeInBoundary(x, maxX)
         .flatMap { posX ->
-            rangeInBounday(y, maxY).map { posY -> Coords(posX, posY) }
+            rangeInBoundary(y, maxY).map { posY -> Coords(posX, posY) }
                 .filter { it != this }
         }.toSet()
 
-    private fun rangeInBounday(i: Int, max: Int): Set<Int> = (i - 1..i + 1)
+    private fun rangeInBoundary(i: Int, max: Int): Set<Int> = (i - 1..i + 1)
         .filter { it in 0..max }.toSet()
 
     fun rightCoord(): Coords = moveTo(Direction.RIGHT)
@@ -87,4 +87,11 @@ data class Grid(
 
     fun cellInCoords(coords: Coords): Cell? = cellsByCoords[coords]
 
+    fun hasCellInCoords(coords: Coords) = cellInCoords(coords) != null
+
+    fun coordsInGrid(coords: Coords) = coords.x in 0..maxX  && coords.y in 0 .. maxY
+
+    fun allCoords(): Set<Coords> = (0 .. maxX)
+        .flatMap { x -> (0 .. maxY).map { y -> Coords(x, y) } }
+        .toSet()
 }
