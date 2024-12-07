@@ -36,9 +36,6 @@ class CalibrationEquation(line: String) {
         numbers = split.last().split(" ").map { it.toLong() }
     }
 
-    fun part1(): Long = solveWithOps(setOf(MUL, ADD))
-    fun part2(): Long = solveWithOps(setOf(MUL, ADD, CONCAT))
-
     fun solveWithOps(validOps: Set<Operation>): Long =
         if (
             validOps.any {
