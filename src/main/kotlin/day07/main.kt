@@ -28,39 +28,48 @@ object Day07Challenge: DayChallenge(
 
 class CalibrationEquation(line: String) {
     private val expectedResult: BigInteger
-    private val numbers: List<Long>
+    private val numbers: List<BigInteger>
 
     init {
         val split = line.split(": ")
         expectedResult = split.first().toBigInteger()
-        numbers = split.last().split(" ").map { it.toLong() }
+        numbers = split.last().split(" ").map { it.toBigInteger() }
     }
 
     fun solveWithOps(validOps: Set<Operation>): Long =
-        if (
-            validOps.any {
-                eval(BigInteger.valueOf(numbers[0]), it, 1, validOps)
-            }
-        ) expectedResult.toLong()
+        if (resultCanBeObtainedWithOps(validOps)) expectedResult.toLong()
         else 0L
 
-    private fun eval(accValue: BigInteger, operation: Operation, nextNumberIndex: Int, valOps: Set<Operation>): Boolean {
-        val newAccValue = when (operation) {
-            ADD -> accValue + BigInteger.valueOf(numbers[nextNumberIndex])
-            MUL -> accValue * BigInteger.valueOf(numbers[nextNumberIndex])
-            CONCAT -> BigInteger.valueOf("$accValue${numbers[nextNumberIndex]}".toLong())
+    private fun resultCanBeObtainedWithOps(validOps: Set<Operation>) =
+        validOps.any { operation ->
+            eval(
+                accValue = numbers[0],
+                operation = operation,
+                nextNumberIndex = 1,
+                validOps
+            )
         }
 
-        return if (numbers.size == (nextNumberIndex + 1)) {
-            newAccValue == expectedResult
-        } else if (newAccValue > expectedResult) {
-            false
-        } else {
-            valOps.any {
-                eval(newAccValue, it, nextNumberIndex + 1, valOps)
-            }
+    private fun eval(accValue: BigInteger, operation: Operation, nextNumberIndex: Int, validOperations: Set<Operation>): Boolean {
+        val newAccValue = operation.applyTo(accValue, numbers[nextNumberIndex])
+
+        return when {
+            nextNumberIndex.isLastIndex() -> newAccValue == expectedResult // End of recursion
+            newAccValue > expectedResult -> false // Optimization
+            else -> validOperations.any { eval(newAccValue, it, nextNumberIndex + 1, validOperations) }
         }
     }
 
-    enum class Operation { ADD, MUL, CONCAT }
+    enum class Operation {
+        ADD, MUL, CONCAT;
+
+        fun applyTo(a: BigInteger, b: BigInteger): BigInteger =
+            when (this) {
+                ADD -> a + b
+                MUL -> a * b
+                CONCAT -> BigInteger.valueOf("$a$b".toLong())
+            }
+    }
+
+    private fun Int.isLastIndex() = numbers.size -1 == this
 }
