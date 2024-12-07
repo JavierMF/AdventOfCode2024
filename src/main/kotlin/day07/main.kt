@@ -60,15 +60,10 @@ class CalibrationEquation(line: String) {
         }
     }
 
-    enum class Operation {
-        ADD, MUL, CONCAT;
-
-        fun applyTo(a: BigInteger, b: BigInteger): BigInteger =
-            when (this) {
-                ADD -> a + b
-                MUL -> a * b
-                CONCAT -> BigInteger.valueOf("$a$b".toLong())
-            }
+    enum class Operation(val applyTo: (BigInteger, BigInteger) -> BigInteger) {
+        ADD({ a, b -> a + b }),
+        MUL({ a, b -> a * b }),
+        CONCAT({ a, b -> BigInteger.valueOf("$a$b".toLong())} );
     }
 
     private fun Int.isLastIndex() = numbers.size -1 == this
