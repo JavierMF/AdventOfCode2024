@@ -75,12 +75,14 @@ enum class Direction(val x: Int, val y: Int, val char:Char) {
 }
 
 data class Grid(
-    val cells: List<Cell>
+    val cells: List<Cell>,
+    private val initMaxX: Int? = null,
+    private val initMaxY: Int? = null,
 ) {
     private val cellsByCoords = cells.associateBy { it.coords }
 
-    val maxX = cells.map { it.coords.x }.max()
-    val maxY = cells.map { it.coords.y }.max()
+    val maxX = initMaxX ?: cells.map { it.coords.x }.max()
+    val maxY = initMaxY ?: cells.map { it.coords.y }.max()
 
     fun cellNeighbours(cell: Cell) = cell.coords.neighboursInGrid(maxX, maxY).mapNotNull { cellInCoords((it)) }
     fun cellInDirection(cell: Cell, dir: Direction) = cellInCoords(cell.coords.moveTo(dir))

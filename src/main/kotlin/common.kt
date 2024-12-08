@@ -46,3 +46,9 @@ fun <T> getEntitiesByLine(filePath: String, mapper: LineMapper<T>): List<T> =
 inline fun <reified T> T.printIt(): T = this.let { println(it); it }
 
 fun <T> List<List<T>>.transpose(): List<List<T>> = List(first().size) { i -> List(size) { j -> this[j][i] } }
+
+fun <T> List<T>.elementPairs(): Sequence<Pair<T, T>> = sequence {
+    for(i in 0 until size-1)
+        for(j in i+1 until size)
+            yield(get(i) to get(j))
+}
