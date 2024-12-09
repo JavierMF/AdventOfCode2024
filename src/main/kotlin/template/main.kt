@@ -1,6 +1,6 @@
 package template
 
-// https://adventofcode.com/2023/day/x
+// https://adventofcode.com/2024/day/x
 
 import DayChallenge
 
